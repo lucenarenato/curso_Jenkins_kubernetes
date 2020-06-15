@@ -1,0 +1,38 @@
+version: '3'
+services:
+
+  database:
+    image: mysql:5.7
+    environment:
+      - "MYSQL_DATABASE=testekub"
+      - "MYSQL_USER=laravel_user"
+      - "MYSQL_PASSWORD=secret"
+      - "MYSQL_ROOT_PASSWORD=secret123"
+    ports:
+      - "13306:3306"
+    networks:
+      - webnet
+
+  #  The Application
+  app:
+    image: jacksonlima91/forum-app:v1
+    container_name: app
+    ports:
+        - 9000:9000
+    networks:
+      - webnet       
+    depends_on:
+      - database
+  # The Web Server
+  web:
+    image: jacksonlima91/forum-web:v1
+    container_name: web  
+    ports:
+      - 4000:80
+    networks:
+      - webnet
+    depends_on:
+      - app    
+networks:
+  webnet:
+  
