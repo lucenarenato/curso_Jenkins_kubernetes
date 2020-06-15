@@ -78,7 +78,7 @@ spec:
         - name: MYSQL_USER
           value: homestead               
         ports:
-        - containerPort: 3306
+        - containerPort: 13306
           name: mysql
         volumeMounts:
         - name: mysql-persistent-storage
